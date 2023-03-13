@@ -1,0 +1,176 @@
+type: edu
+files:
+- name: repository/main.py
+  visible: true
+  learner_created: false
+- name: test/__init__.py
+  visible: false
+  learner_created: false
+- name: test/tests.py
+  visible: false
+  text: |
+    import difflib
+
+    import git
+    from git import InvalidGitRepositoryError, NoSuchPathError
+    from hstest import CheckResult, StageTest, dynamic_test
+
+    repo_path = "./repository"
+    commit_message = "Fix typos"
+    commit_count = 2
+    branch_name = "main"
+    branch_hotfix = "hotfix/no-more-typos"
+    test_list = ['if __name__ == "__main__":', '    print("Hello, world!")']
+    file_name = "main.py"
+    branches_list = ['develop', 'hotfix/no-more-typos', 'main']
+
+
+    class GitTest(StageTest):
+
+        def __init__(self):
+            super().__init__()
+            self.r = None
+
+        @staticmethod
+        def file_content_test(test_file, output_file):
+            """Tests the contents of files line by line"""
+            try:
+                # removing blank spaces, newlines and adding a new line for each line
+                test_file_data = [f"{line.strip()}\n" for line in test_file]
+                output_file_data = [f"{line.strip()}\n" for line in output_file]
+
+                # Converting generator object to list
+                wrong_lines = [line for line in difflib.unified_diff(
+                    test_file_data, output_file_data, fromfile="test-file",
+                    tofile="output-file", lineterm='\n')]
+            except:
+                return CheckResult.wrong("Error while comparing test and output file!")
+
+            if not wrong_lines:
+                return CheckResult.correct()
+
+            return CheckResult.wrong(
+                f"Wrong line(s) found in the output file\n"
+                f"{''.join(wrong_lines)}"
+            )
+
+        def after_all_tests(self):
+            try:
+                self.r.git.switch(branch_name)
+            except:
+                return CheckResult.wrong(f"Can not checkout to branch '{branch_name}'!")
+
+        # Test if path is a valid git repository
+        @dynamic_test()
+        def test1(self):
+            try:
+                self.r = git.Repo(repo_path)
+            except NoSuchPathError as e:
+                return CheckResult.wrong(f"The path '{repo_path}' does not exist!")
+            except InvalidGitRepositoryError as e:
+                return CheckResult.wrong(f"'{repo_path}' is not a valid git repository!")
+            except Exception as err:
+                return CheckResult.wrong(f"{err} error occurred while creating the Git instance!")
+
+            return CheckResult.correct()
+
+        # Test active branch
+        @dynamic_test
+        def test2(self):
+            try:
+                is_valid_branch = self.r.active_branch.is_valid()
+                current_branch_name = self.r.active_branch.name
+            except TypeError:
+                return CheckResult.wrong("Head might be detached!")
+            except AssertionError:
+                return CheckResult.wrong("Failed to read branch name!")
+            except Exception as err:
+                return CheckResult.wrong(f"{err} error occurred while reading branch name!")
+            if not is_valid_branch:
+                return CheckResult.wrong(f"Active branch is not valid!")
+            if current_branch_name != branch_name:
+                return CheckResult.wrong(f"Active branch is not '{branch_name}'!")
+
+            return CheckResult.correct()
+
+        # Test commit message
+        @dynamic_test
+        def test3(self):
+            if self.r.commit().message.strip() == commit_message:
+                return CheckResult.correct()
+            return CheckResult.wrong(f"Commit message should be '{commit_message}'!")
+
+        # Test commit count
+        @dynamic_test
+        def test4(self):
+            if self.r.commit().count() == commit_count:
+                return CheckResult.correct()
+            return CheckResult.wrong(f"Commit count should be '{commit_count}'!")
+
+        # Test the file and the content
+        @dynamic_test
+        def test5(self):
+            h = self.r.commit().binsha.hex()
+            try:
+                b = self.r.blame(h, file_name)
+            except:
+                return CheckResult.wrong(f"'{file_name}' not found in the commit!")
+
+            # Adding unchanged and changed lines to the list
+            commit_content = []
+            for item in b:
+                for line in item[-1]:
+                    commit_content.append(line)
+            # print(commit_content)
+            return GitTest.file_content_test(test_list, commit_content)
+
+        # Test existence of branches
+        @dynamic_test
+        def test6(self):
+            branches = [b.name for b in self.r.branches]
+            for b in branches_list:
+                if b not in branches:
+                    return CheckResult.wrong(f"Branch '{b}' not found!")
+            return CheckResult.correct()
+
+        # Test content of the 'hotfix' branch
+        @dynamic_test
+        def test7(self):
+            try:
+                self.r.git.switch(branch_hotfix)
+            except:
+                return CheckResult.wrong(f"Can not checkout to branch '{branch_hotfix}'!")
+            if self.r.commit().message.strip() != commit_message:
+                self.r.git.switch(branch_name)
+                return CheckResult.wrong(f"Commit message should be '{commit_message}'!")
+
+            h = self.r.commit().binsha.hex()
+            try:
+                b = self.r.blame(h, file_name)
+            except:
+                self.r.git.switch(branch_name)
+                return CheckResult.wrong(f"'{file_name}' not found in the commit!")
+
+            # Adding unchanged and changed lines to the list
+            commit_content = []
+            for item in b:
+                for line in item[-1]:
+                    commit_content.append(line)
+            # print(commit_content)
+            return GitTest.file_content_test(test_list, commit_content)
+
+
+    if __name__ == '__main__':
+        GitTest().run_tests()
+  learner_created: false
+- name: tests.py
+  visible: false
+  text: |
+    from test.tests import GitTest
+
+    if __name__ == '__main__':
+        GitTest().run_tests()
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/296/stages/1554/implement#comment
+status: Unchecked
+record: -1

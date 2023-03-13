@@ -1,0 +1,16 @@
+<h5 id="description">Description</h5>
+<p>You'll continue to work with a program in the new <code class="language-python">develop</code> branch. This branch usually has the latest code version. When developers finish the current work and test all the changes, they merge this branch with the main one.</p>
+<p></p><div class="alert alert-primary">Be wary of deleting the <code class="language-python">develop</code> branch. It should stay in the repository even after the merge because it's the stream of the latest changes; you can keep track of them<span style="color: #66cc66;">.</span></div>
+<p>Follow the objectives and do not rush to merge with the main branch. You'll do it a few steps later.</p>
+<h5 id="objectives">Objectives</h5>
+<p>Start with creating the <code class="language-python">develop</code> branch using the <code class="language-python">git-flow</code> command or create it with plain git. In this branch, you should alter the content of the <em>main.py</em> file. Now, the program asks for your name and greets you after.</p>
+<pre><code class="language-python">def main() -&gt; None:
+    name = input("What's your name? ")
+    print(f"Hello, {name}!")
+
+
+if __name__ == "__main__":
+    main()</code></pre>
+<p>You can play around with the program running it as <code class="language-python">python main.py</code> in the terminal. Then commit the latest version in the <code class="language-python">develop</code> branch with the commit message <em>"Greet user by the name"</em>.</p>
+<p>Do not alter any other branches, and do not merge the <code class="language-python">develop</code> branch with the main.</p>
+<p></p><div class="alert alert-warning">Please do not modify the given code.</div>

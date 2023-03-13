@@ -1,0 +1,62 @@
+hyperskill_project:
+  id: 296
+  ide_files: https://stepik.org/media/attachments/lesson/804846/additional_files.json
+  is_template_based: false
+  use_ide: true
+update_date: "Thu, 01 Jan 1970 00:00:00 UTC"
+stages:
+- id: 1551
+  step: 23061
+  is_completed: true
+- id: 1552
+  step: 23062
+  is_completed: true
+- id: 1553
+  step: 23063
+  is_completed: false
+- id: 1554
+  step: 23064
+  is_completed: false
+- id: 1555
+  step: 23065
+  is_completed: false
+- id: 1556
+  step: 23066
+  is_completed: false
+topics:
+  0:
+  - title: Introduction to Operating systems
+    theory_id: 9704
+  - title: Command line overview
+    theory_id: 8977
+  - title: Parameters and Options
+    theory_id: 9746
+  - title: Starting with Git
+    theory_id: 10894
+  - title: Local repository
+    theory_id: 10901
+  - title: Introduction to Linux
+    theory_id: 9526
+  1:
+  - title: Git branches
+    theory_id: 11189
+  - title: Introduction to Gitflow
+    theory_id: 11445
+  2:
+  - title: Git internal structure
+    theory_id: 11461
+  - title: Editing the commit
+    theory_id: 10910
+  3:
+  - title: Gitflow auxiliary branches
+    theory_id: 11453
+  4:
+  - title: Git rebase
+    theory_id: 11541
+  - title: Searching with git
+    theory_id: 11533
+  5:
+  - title: Starting with GitHub
+    theory_id: 4802
+  - title: World Wide Web
+    theory_id: 6633

@@ -1,0 +1,13 @@
+type: hyperskill
+title: Gitman
+language: English
+summary: "<p>We tend to write our code in plain files on our laptops. However, this\
+  \ approach doesn&#39;t work if you want to encourage your colleagues to help you\
+  \ with development. Let&#39;s learn how to use the popular version control system&nbsp;<strong>git,</strong>&nbsp;which\
+  \ allows us to&nbsp;work&nbsp;simultaneously on different tasks with&nbsp;code repositories.</p><br/><br/>Learn\
+  \ more at <a href=\"https://hyperskill.org/projects/296?utm_source=ide&utm_medium=ide&utm_campaign=ide&utm_content=project-card\"\
+  >https://hyperskill.org/projects/296</a>"
+programming_language: Python
+content:
+- Gitman
+mode: Study
