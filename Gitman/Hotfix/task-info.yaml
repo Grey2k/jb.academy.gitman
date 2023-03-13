@@ -1,8 +1,5 @@
 type: edu
 files:
-- name: repository/main.py
-  visible: true
-  learner_created: false
 - name: test/__init__.py
   visible: false
   learner_created: false
@@ -171,9 +168,12 @@ files:
     if __name__ == '__main__':
         GitTest().run_tests()
   learner_created: false
+- name: repository/main.py
+  visible: true
+  learner_created: false
 feedback_link: https://hyperskill.org/learn/step/23064#comment
 status: Solved
 feedback:
   message: Congratulations!
-  time: "Mon, 13 Mar 2023 19:07:06 UTC"
+  time: "Mon, 13 Mar 2023 20:03:54 UTC"
 record: 3
