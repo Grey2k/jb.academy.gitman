@@ -6,17 +6,21 @@ from hstest import CheckResult, StageTest, dynamic_test
 
 repo_path = "./repository"
 commit_message = "Greet user by the name"
-commit_count = 2
-branch_name = "develop"
+commit_count = 3
+branch_name = "main"
+remote_name = "origin/master"
 test_list = ['def main() -> None:',
              '    name = input("What\'s your name? ")',
              '    print(f"Hello, {name}!")',
+             '    print("Nice to meet you!")',
              '',
              '',
              'if __name__ == "__main__":',
+             '    print("Hello, world!")',
              '    main()'
              ]
 file_name = "main.py"
+branches_list = ['develop', 'hotfix/no-more-typos', 'main']
 
 
 class GitTest(StageTest):
@@ -24,6 +28,7 @@ class GitTest(StageTest):
     def __init__(self):
         super().__init__()
         self.r = None
+
 
     @staticmethod
     def file_content_test(test_file, output_file):
@@ -47,6 +52,7 @@ class GitTest(StageTest):
             f"Wrong line(s) found in the output file\n"
             f"{''.join(wrong_lines)}"
         )
+
 
     # Test if path is a valid git repository
     @dynamic_test()
@@ -111,6 +117,25 @@ class GitTest(StageTest):
                 commit_content.append(line)
         # print(commit_content)
         return GitTest.file_content_test(test_list, commit_content)
+
+    # Test existence of branches
+    @dynamic_test
+    def test6(self):
+        branches = [b.name for b in self.r.branches]
+        for b in branches_list:
+            if b not in branches:
+                return CheckResult.wrong(f"Branch '{b}' not found!")
+        return CheckResult.correct()
+
+    # Test existence of remote branch definition
+    @dynamic_test
+    def test7(self):
+        try:
+            if self.r.remotes:
+                return CheckResult.correct()
+            return CheckResult.wrong("\nRemote branch settings does not found!")
+        except:
+            return CheckResult.wrong("\nDirectory not found or failure during executing git command!")
 
 
 if __name__ == '__main__':

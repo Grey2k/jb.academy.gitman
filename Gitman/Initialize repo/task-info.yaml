@@ -131,7 +131,7 @@ files:
     if __name__ == '__main__':
         GitTest().run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/296/stages/1551/implement#comment
+feedback_link: https://hyperskill.org/learn/step/23061#comment
 status: Solved
 feedback:
   message: Congratulations!

@@ -160,6 +160,10 @@ files:
     if __name__ == '__main__':
         GitTest().run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/296/stages/1556/implement#comment
-status: Unchecked
+feedback_link: https://hyperskill.org/learn/step/23066#comment
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Mon, 13 Mar 2023 19:25:38 UTC"
 record: -1

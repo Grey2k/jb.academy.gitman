@@ -135,9 +135,9 @@ files:
     if __name__ == '__main__':
         GitTest().run_tests()
   learner_created: false
-feedback_link: https://hyperskill.org/projects/296/stages/1552/implement#comment
+feedback_link: https://hyperskill.org/learn/step/23062#comment
 status: Solved
 feedback:
   message: Congratulations!
   time: "Mon, 13 Mar 2023 18:42:39 UTC"
-record: -1
+record: 1
