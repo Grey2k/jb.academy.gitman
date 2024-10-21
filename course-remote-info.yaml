@@ -19,10 +19,10 @@ stages:
   is_completed: true
 - id: 1555
   step: 23065
-  is_completed: false
+  is_completed: true
 - id: 1556
   step: 23066
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Introduction to Operating systems

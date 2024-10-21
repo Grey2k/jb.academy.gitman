@@ -147,11 +147,8 @@ files:
         GitTest().run_tests()
   learner_created: false
 feedback_link: https://hyperskill.org/learn/step/23065#comment
-status: Failed
+status: Solved
 feedback:
-  message: |-
-    Wrong answer in test #2
-
-    Active branch is not 'develop'!
-  time: "Mon, 13 Mar 2023 20:11:47 UTC"
+  message: Congratulations!
+  time: "Mon, 13 Mar 2023 20:16:20 UTC"
 record: 4
